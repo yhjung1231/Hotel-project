@@ -1,3 +1,4 @@
+
 #File 1 Parameters and distributions 
 
 library (truncdist)
@@ -21,6 +22,7 @@ Frac.HF <-runif(iterations, min=0.008, max=0.012)
 Conc.i.hand<-0
 Conc.i.face<-0
 Conc.i.surface<-rlnormTrunc(iterations, meanlog =log(8.55E-04), sdlog =log(8.80), min = 0, max = 9.37E+04 )
+
 # log Reduction (intervention)
 Reduc.intv <-1.58
 

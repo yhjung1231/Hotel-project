@@ -1,3 +1,4 @@
+
 organism<-"Salmonella"
 source("Parameters and distributions.R")
 
@@ -116,6 +117,7 @@ View(spear.anal)
 
 library(openxlsx)
 write.csv (spear.anal, file="Sensitivity.sal.csv")
+
 
 
 
