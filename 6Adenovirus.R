@@ -1,4 +1,4 @@
-organism<-"InfluenzaA"
+organism<-"Adenovirus"
 source("Parameters and distributions.R")
 
 
@@ -18,17 +18,18 @@ Risk<-matrix(nrow=numevents, ncol=iterations)
 rownames(Risk)<-eventsname
 
 ##1.1 Baseline scenario ----------------------------------------
+k<-0.607
 
 Conc[1,] <- TE.all*Frac.HS*Conc.i.surface
 Dose[1,]<- TE.face*T.handarea*Frac.HF*Conc [1, ] #multiply surface area of hand 
-Risk[1,]<- 1-(1+(Dose[1,]/beta))^(-alpha)
+Risk[1,]<- 1-exp(-Dose[1,]*k)
+
 
 ##1.2 Intervention scenario ----------------------------------------
 
 Conc[2,] <- TE.all*Frac.HS*(Conc.i.surface/10^(Reduc.intv)) # <--- change the calculation 
 Dose[2,]<- TE.face*T.handarea*Frac.HF*Conc[2, ]
-Risk[2,]<- 1-(1+(Dose[2,]/beta))^(-alpha)
-
+Risk[2,]<-1-exp(-Dose[2,]*k)
 
 ##1.3 plotting---------------------------------------------------------------
 library(ggplot2)
@@ -50,9 +51,9 @@ ggplot(data)+geom_violin(aes(x=event,y=value,fill=type, group=event),alpha=0.3,d
   facet_wrap(~type,scales="free") +
   scale_y_continuous(trans="log10") +
   scale_x_discrete(limits=c("pre","post"))+
-  ggtitle("Comparison between Pre- and Post-intervention (Influenza)")
+  ggtitle("Comparison between Pre- and Post-intervention (Adenovirus)")
 
-ggsave("influ_intevention.tiff", dpi=600, dev='tiff', height=4, width=6, units="in")
+ggsave("adeno_intevention.tiff", dpi=600, dev='tiff', height=4, width=6, units="in")
 
 
 
@@ -101,18 +102,20 @@ View(matrix.Risk)
 
 #Pull out the data 
 library(openxlsx)
-write.csv(matrix.Conc, file="Conc.influ.csv")
-write.csv(matrix.Dose, file="Dose.influ.csv")
-write.csv(matrix.Risk, file="Risk.influ.csv")
+write.csv(matrix.Conc, file="Conc.adeno.csv")
+write.csv(matrix.Dose, file="Dose.adeno.csv")
+write.csv(matrix.Risk, file="Risk.adeno.csv")
+
 
 #5. Sensitivity Analysis---------------------------------------------------
 
-spear.Influ<-data.frame(T.handarea, Frac.HS, Frac.HF, Reduc.intv,TE.all, TE.face,
+spear.Adeno<-data.frame(T.handarea, Frac.HS, Frac.HF, Reduc.intv,TE.all, TE.face,
                        Conc.i.face, Conc.i.hand, Conc.i.surface, Risk[2,])  
 
-spear.anal<-cor(spear.Influ,method="spearman")
+spear.anal<-cor(spear.Adeno,method="spearman")
 
 View(spear.anal)
 
 library(openxlsx)
-write.csv (spear.anal, file="Sensitivity.influ.csv")
+write.csv (spear.anal, file="Sensitivity.adeno.csv")
+

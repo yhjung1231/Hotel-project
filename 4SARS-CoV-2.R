@@ -106,3 +106,14 @@ write.csv(matrix.Dose, file="Dose.sars2.csv")
 write.csv(matrix.Risk, file="Risk.sars2.csv")
 
 
+#5. Sensitivity Analysis---------------------------------------------------
+
+spear.Sars2<-data.frame(T.handarea, Frac.HS, Frac.HF, Reduc.intv,TE.all, TE.face,
+                        Conc.i.face, Conc.i.hand, Conc.i.surface, Risk[2,])  
+
+spear.anal<-cor(spear.Sars2,method="spearman")
+
+View(spear.anal)
+
+library(openxlsx)
+write.csv (spear.anal, file="Sensitivity.sars2.csv")

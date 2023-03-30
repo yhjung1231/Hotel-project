@@ -105,19 +105,17 @@ write.csv(matrix.Dose, file="Dose.rota.csv")
 write.csv(matrix.Risk, file="Risk.rota.csv")
 
 
-#--------------------------------------------------------------------------------
-#Sensitivity Analysis---------------------------------------------------
+#5. Sensitivity Analysis---------------------------------------------------
 
-spear.Rota<-data.frame(T.handarea, Surface.area.laundry, Frac.HS, Frac.HF, Item.laundry,
-                       Contact.time.laundry, Contact.time.face.w, Contact.time.face.d, Contact.time.face.f,
-                       Reduc.wash, Reduc.dry, Reduc.hwash, TE.dry, TE.wet, TE.face, Conc.feces, 
-                       Mass.feces, Conc.onecloth, Inact.h, Inact.s, Risk.3[8,])  
+spear.Rota<-data.frame(T.handarea, Frac.HS, Frac.HF, Reduc.intv,TE.all, TE.face,
+                        Conc.i.face, Conc.i.hand, Conc.i.surface, Risk[2,])  
 
 spear.anal<-cor(spear.Rota,method="spearman")
 
 View(spear.anal)
 
 library(openxlsx)
-write.xlsx(spear.anal, sheetName="Rota1", file="Sensitivity.rota1.xlsx")
+write.csv (spear.anal, file="Sensitivity.rota.csv")
+
 
 

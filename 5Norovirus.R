@@ -1,6 +1,6 @@
 organism<-"Norovirus"
 source("Parameters and distributions.R")
-Risk[2,]<- 0.722*(1-exp(-Dose[2,]/1106))
+
 
 #1.A single fomite contact & a single orifice contact 
 
@@ -103,20 +103,16 @@ write.csv(matrix.Conc, file="Conc.noro.csv")
 write.csv(matrix.Dose, file="Dose.noro.csv")
 write.csv(matrix.Risk, file="Risk.noro.csv")
 
+#5. Sensitivity Analysis---------------------------------------------------
 
-#--------------------------------------------------------------------------------
-#Sensitivity Analysis---------------------------------------------------
+spear.Noro<-data.frame(T.handarea, Frac.HS, Frac.HF, Reduc.intv,TE.all, TE.face,
+                        Conc.i.face, Conc.i.hand, Conc.i.surface, Risk[2,])  
 
-spear.Rota<-data.frame(T.handarea, Surface.area.laundry, Frac.HS, Frac.HF, Item.laundry,
-                       Contact.time.laundry, Contact.time.face.w, Contact.time.face.d, Contact.time.face.f,
-                       Reduc.wash, Reduc.dry, Reduc.hwash, TE.dry, TE.wet, TE.face, Conc.feces, 
-                       Mass.feces, Conc.onecloth, Inact.h, Inact.s, Risk.3[8,])  
-
-spear.anal<-cor(spear.Rota,method="spearman")
+spear.anal<-cor(spear.Noro,method="spearman")
 
 View(spear.anal)
 
 library(openxlsx)
-write.xlsx(spear.anal, sheetName="Rota1", file="Sensitivity.rota1.xlsx")
+write.csv (spear.anal, file="Sensitivity.noro.csv")
 
 

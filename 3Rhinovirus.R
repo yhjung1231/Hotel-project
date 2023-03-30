@@ -104,3 +104,16 @@ library(openxlsx)
 write.csv(matrix.Conc, file="Conc.rhino.csv")
 write.csv(matrix.Dose, file="Dose.rhino.csv")
 write.csv(matrix.Risk, file="Risk.rhino.csv")
+
+
+#5. Sensitivity Analysis---------------------------------------------------
+
+spear.Rhino<-data.frame(T.handarea, Frac.HS, Frac.HF, Reduc.intv,TE.all, TE.face,
+                       Conc.i.face, Conc.i.hand, Conc.i.surface, Risk[2,])  
+
+spear.anal<-cor(spear.Rhino,method="spearman")
+
+View(spear.anal)
+
+library(openxlsx)
+write.csv (spear.anal, file="Sensitivity.rhino.csv")

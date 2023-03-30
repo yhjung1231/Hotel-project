@@ -1,4 +1,4 @@
-organism<-"InfluenzaA"
+organism<-"Campylobacter"
 source("Parameters and distributions.R")
 
 
@@ -50,9 +50,9 @@ ggplot(data)+geom_violin(aes(x=event,y=value,fill=type, group=event),alpha=0.3,d
   facet_wrap(~type,scales="free") +
   scale_y_continuous(trans="log10") +
   scale_x_discrete(limits=c("pre","post"))+
-  ggtitle("Comparison between Pre- and Post-intervention (Influenza)")
+  ggtitle("Comparison between Pre- and Post-intervention (Campylobacter)")
 
-ggsave("influ_intevention.tiff", dpi=600, dev='tiff', height=4, width=6, units="in")
+ggsave("campyl_intevention.tiff", dpi=600, dev='tiff', height=4, width=6, units="in")
 
 
 
@@ -101,18 +101,20 @@ View(matrix.Risk)
 
 #Pull out the data 
 library(openxlsx)
-write.csv(matrix.Conc, file="Conc.influ.csv")
-write.csv(matrix.Dose, file="Dose.influ.csv")
-write.csv(matrix.Risk, file="Risk.influ.csv")
+write.csv(matrix.Conc, file="Conc.campyl.csv")
+write.csv(matrix.Dose, file="Dose.campyl.csv")
+write.csv(matrix.Risk, file="Risk.campyl.csv")
 
 #5. Sensitivity Analysis---------------------------------------------------
 
-spear.Influ<-data.frame(T.handarea, Frac.HS, Frac.HF, Reduc.intv,TE.all, TE.face,
-                       Conc.i.face, Conc.i.hand, Conc.i.surface, Risk[2,])  
+spear.Camp<-data.frame(T.handarea, Frac.HS, Frac.HF, Reduc.intv,TE.all, TE.face,
+                      Conc.i.face, Conc.i.hand, Conc.i.surface, Risk[2,])  
 
-spear.anal<-cor(spear.Influ,method="spearman")
+spear.anal<-cor(spear.Camp,method="spearman")
 
 View(spear.anal)
 
 library(openxlsx)
-write.csv (spear.anal, file="Sensitivity.influ.csv")
+write.csv (spear.anal, file="Sensitivity.camp.csv")
+
+
