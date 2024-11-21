@@ -62,8 +62,8 @@ if (organism == "Rotavirus"){
   TE.face<-rtrunc(iterations,"norm", mean=0.3390, sd=0.1318, a=0, b=1)
   
   #Dose response value 
-  alpha<-0.221
-  N50<-1.81
+  alpha<-0.725
+  N50<-0.108
   beta<-N50/(2^(1/alpha)-1)
   
   } else if (organism == "Norovirus"){
